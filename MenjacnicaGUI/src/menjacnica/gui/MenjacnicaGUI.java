@@ -2,7 +2,6 @@ package menjacnica.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,12 +9,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,18 +26,11 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
 import javax.swing.JEditorPane;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.PopupMenuListener;
-
-import baza.Kurs;
 import baza.Valuta;
 import baza.ValutaTableModel;
 import menjacnica.gui.kontroler.GUIKontroler;
-
-import javax.swing.event.PopupMenuEvent;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -70,7 +57,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmIzbrisiKurs;
 	private JMenuItem mntmIzvrsiIzmenu;
 	private static JEditorPane editorPane;
-	// private ImageIcon image;
+	
 
 	/**
 	 * Create the frame.
@@ -85,7 +72,7 @@ public class MenjacnicaGUI extends JFrame {
 			}
 		});
 
-		//setIconImage(ImageIO.read(new File("resources/mi.png")));
+		
 		setTitle("Menja\u010Dnica");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 735, 364);
@@ -97,6 +84,7 @@ public class MenjacnicaGUI extends JFrame {
 		contentPane.add(getScrollPane(), BorderLayout.CENTER);
 		contentPane.add(getEditorPane(), BorderLayout.SOUTH);
 		contentPane.add(getPanelZaDugmice(), BorderLayout.EAST);
+		
 	}
 
 	private JMenuBar getMenuBar_1() {
@@ -207,6 +195,9 @@ public class MenjacnicaGUI extends JFrame {
 			panelZaDugmice.add(getBtnDodajKurs());
 			panelZaDugmice.add(getBtnIzbrisiKurs());
 			panelZaDugmice.add(getBtnIzvrsiIzmenu());
+		
+			
+
 		}
 		return panelZaDugmice;
 	}
@@ -227,11 +218,19 @@ public class MenjacnicaGUI extends JFrame {
 
 	private JButton getBtnIzvrsiIzmenu() {
 		if (btnIzvrsiZamenu == null) {
-			btnIzvrsiZamenu = new JButton("Izvr\u0161i zamenu");
+			btnIzvrsiZamenu = new JButton("Izvrši zamenu");
+			btnIzvrsiZamenu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.prikaziIzvrsiIzmenu();
+				}
+			});
+
 			btnIzvrsiZamenu.setPreferredSize(new Dimension(120, 25));
 		}
 		return btnIzvrsiZamenu;
 	}
+
+
 
 	public void osveziTabelu() {
 		ValutaTableModel model = (ValutaTableModel) table.getModel();
@@ -344,6 +343,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmIzvrsiIzmenu() {
 		if (mntmIzvrsiIzmenu == null) {
 			mntmIzvrsiIzmenu = new JMenuItem("Izvrši izmenu");
+			mntmIzvrsiIzmenu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.prikaziIzvrsiIzmenu();
+				}
+			});
 			
 		}
 		return mntmIzvrsiIzmenu;

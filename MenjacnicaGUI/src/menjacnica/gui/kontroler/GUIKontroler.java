@@ -2,14 +2,13 @@ package menjacnica.gui.kontroler;
 
 import java.awt.EventQueue;
 import java.io.File;
-import java.util.LinkedList;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import baza.Kurs;
 import baza.Valuta;
 import menjacnica.gui.DodajKursGUI;
+import menjacnica.gui.IzvrsiZamenuGUI;
 import menjacnica.gui.MenjacnicaGUI;
 
 public class GUIKontroler {
@@ -132,6 +131,14 @@ public class GUIKontroler {
 		public static String vratiPoslednjuValutu() {
 			return kurs.vratiPoslednjegString();
 		}
+
+		public static void prikaziIzvrsiIzmenu() {
+			IzvrsiZamenuGUI prozor = new IzvrsiZamenuGUI();
+			prozor.setVisible(true);
+			prozor.setLocationRelativeTo(null);
+		}
+
+
 
 
 	}
