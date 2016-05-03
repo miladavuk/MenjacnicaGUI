@@ -276,12 +276,48 @@ public class MenjacnicaGUI extends JFrame {
 
 	private JButton getBtnIzbrisiKurs() {
 		if (btnIzbrisiKurs == null) {
-			btnIzbrisiKurs = new JButton("Izbri\u0161i kurs");
+			btnIzbrisiKurs = new JButton("Izbriši kurs");
 			btnIzbrisiKurs.setPreferredSize(new Dimension(120, 25));
-			
+			btnIzbrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					if (getTable().getSelectedRow() != -1) {
+
+						int opcija = JOptionPane.showConfirmDialog(getContentPane(),
+								"Da li ste sigurni da želite da obrišete kurs?", "Brisanje kursa",
+								JOptionPane.YES_NO_OPTION);
+
+						if (opcija == JOptionPane.YES_OPTION) {
+							int red = getTable().getSelectedRow();
+							Valuta v = new Valuta();
+							v.setSifra((Integer) getTable().getValueAt(red, 0));
+							v.setSkraceniNaziv((String) getTable().getValueAt(red, 1));
+							v.setKupovni((Double) getTable().getValueAt(red, 2));
+							v.setProdajni((Double) getTable().getValueAt(red, 3));
+							v.setSrednji((Double) getTable().getValueAt(red, 4));
+							v.setNaziv((String) getTable().getValueAt(red, 5));
+							try {
+								GUIKontroler.obrisiValutu(v);
+								osveziTabelu();
+								dodajTekstUEditor(
+										"Izbrisan je red sa indeksom: " + (red + 1));
+								JOptionPane.showInternalMessageDialog(getContentPane(), "Uspešno ste izbrisali red", "Uspeh",JOptionPane.INFORMATION_MESSAGE );
+							} catch (Exception e1) {
+								JOptionPane.showInternalMessageDialog(getContentPane(), "Niste izbrisali red"+e1.getMessage(), "Greška",JOptionPane.WARNING_MESSAGE );
+							}
+						}
+
+					} else {
+						JOptionPane.showMessageDialog(getContentPane(),
+								"Niste izabrali red koji želite da obrišete!");
+					}
+				}
+			});
 		}
 		return btnIzbrisiKurs;
 	}
+
+
 
 	private JMenuItem getMntmDodajKurs() {
 		if (mntmDodajKurs == null) {

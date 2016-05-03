@@ -124,7 +124,7 @@ public class GUIKontroler {
 			return kurs.vratiSveValute();
 		}
 
-		public static void izbrisiValutu(Valuta v) {
+		public static void obrisiValutu(Valuta v) {
 			kurs.obrisiValutu(v);
 			menjacnica.osveziTabelu();
 			
