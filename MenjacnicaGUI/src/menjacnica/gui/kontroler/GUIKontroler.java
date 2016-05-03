@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import baza.Kurs;
 import baza.Valuta;
+import menjacnica.gui.DodajKursGUI;
 import menjacnica.gui.MenjacnicaGUI;
 
 public class GUIKontroler {
@@ -89,9 +90,6 @@ public class GUIKontroler {
 		return ucitanFajl;
 	}	
 
-	public static List<Valuta> vratiSveValute() {
-		return kurs.vratiSveValute();
-	}	
 
 	public static String getTekstZaEditor() {
 		return tekstZaEditor;
@@ -100,5 +98,44 @@ public class GUIKontroler {
 	public static void setTekstZaEditor(String tekstZaEditor) {
 		GUIKontroler.tekstZaEditor = tekstZaEditor;
 	}
+	public static void unesiValutu(int sifra, String skraceniNaziv, double kupovni, double prodajni, double srednji,
+			String naziv) {
+		
+			Valuta v = new Valuta();
+			v.setKupovni(kupovni);
+			v.setNaziv(naziv);
+			v.setProdajni(prodajni);
+			v.setSifra(sifra);
+			v.setSkraceniNaziv(skraceniNaziv);
+			v.setSrednji(srednji);
+			kurs.dodajValutu(v);
 
-}
+			menjacnica.osveziTabelu();			
+		
+		}
+		public static void prikaziDodajKurs() {
+			DodajKursGUI prozor = new DodajKursGUI();
+			prozor.setVisible(true);
+			prozor.setLocationRelativeTo(null);
+		}
+	
+
+		public static List<Valuta> vratiSveValute() {
+			return kurs.vratiSveValute();
+		}
+
+		public static void izbrisiValutu(Valuta v) {
+			kurs.obrisiValutu(v);
+			menjacnica.osveziTabelu();
+			
+		}
+		public static String vratiPoslednjuValutu() {
+			return kurs.vratiPoslednjegString();
+		}
+
+
+	}
+
+
+
+
