@@ -299,7 +299,7 @@ public class MenjacnicaGUI extends JFrame {
 								GUIKontroler.obrisiValutu(v);
 								osveziTabelu();
 								dodajTekstUEditor(
-										"Izbrisan je red sa indeksom: " + (red + 1)+ "/n") ;
+										"Izbrisan je red sa indeksom: " + (red + 1)+ "\n") ;
 								JOptionPane.showInternalMessageDialog(getContentPane(), "Uspešno ste izbrisali red", "Uspeh",JOptionPane.INFORMATION_MESSAGE );
 							} catch (Exception e1) {
 								JOptionPane.showInternalMessageDialog(getContentPane(), "Niste izbrisali red"+e1.getMessage(), "Greška",JOptionPane.WARNING_MESSAGE );
