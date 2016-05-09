@@ -31,6 +31,10 @@ import javax.swing.border.TitledBorder;
 import baza.Valuta;
 import baza.ValutaTableModel;
 import menjacnica.gui.kontroler.GUIKontroler;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import java.awt.Color;
+import java.awt.Font;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -46,7 +50,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmExit;
 	private JMenu mnHelp;
 	private JMenuItem mntmAbout;
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPaneZaTabelu;
 	private JTable table;
 	private JPanel panelZaDugmice;
 	private JButton btnDodajKurs;
@@ -56,7 +60,8 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmDodajKurs;
 	private JMenuItem mntmIzbrisiKurs;
 	private JMenuItem mntmIzvrsiIzmenu;
-	private static JEditorPane editorPane;
+	private JScrollPane scrollPaneZaEditor;
+	private static JTextArea editorPane;
 	
 
 	/**
@@ -81,9 +86,9 @@ public class MenjacnicaGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.add(getScrollPane(), BorderLayout.CENTER);
-		contentPane.add(getEditorPane(), BorderLayout.SOUTH);
-		contentPane.add(getPanelZaDugmice(), BorderLayout.EAST);
+		contentPane.add(getScrollPaneZaTabelu(), BorderLayout.CENTER);
+		contentPane.add(getPanelZaDugmice(), BorderLayout.EAST);		
+		contentPane.add(getScrollPane_1(), BorderLayout.SOUTH);
 		
 	}
 
@@ -169,14 +174,14 @@ public class MenjacnicaGUI extends JFrame {
 		return mntmAbout;
 	}
 
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setEnabled(false);
-			addPopup(scrollPane, getPopupMenu());
-			scrollPane.setViewportView(getTable());
+	private JScrollPane getScrollPaneZaTabelu() {
+		if (scrollPaneZaTabelu == null) {
+			scrollPaneZaTabelu = new JScrollPane();
+			scrollPaneZaTabelu.setEnabled(false);
+			addPopup(scrollPaneZaTabelu, getPopupMenu());
+			scrollPaneZaTabelu.setViewportView(getTable());
 		}
-		return scrollPane;
+		return scrollPaneZaTabelu;
 	}
 
 	private JTable getTable() {
@@ -353,16 +358,6 @@ public class MenjacnicaGUI extends JFrame {
 		return mntmIzvrsiIzmenu;
 	}
 
-	private JEditorPane getEditorPane() {
-		if (editorPane == null) {
-			editorPane = new JEditorPane();
-			editorPane.setEditable(false);
-			editorPane.setEnabled(false);
-			editorPane.setBorder(new TitledBorder(null, "Status", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		}
-		return editorPane;
-	}
-
 	public static void dodajTekstUEditor(String tekst) {
 		if (editorPane.getText() != null)
 			editorPane.setText(editorPane.getText() + tekst);
@@ -370,4 +365,22 @@ public class MenjacnicaGUI extends JFrame {
 			editorPane.setText(tekst);
 	}
 
+	private JScrollPane getScrollPane_1() {
+		if (scrollPaneZaEditor == null) {
+			scrollPaneZaEditor = new JScrollPane();
+			scrollPaneZaEditor.setPreferredSize(new Dimension(300, 80));
+			scrollPaneZaEditor.setViewportView(getEditorPane());			
+		}
+		return scrollPaneZaEditor;
+	}
+	private JTextArea getEditorPane() {
+		if (editorPane == null) {
+			editorPane = new JTextArea();
+			editorPane.setFont(new Font("Monospaced", Font.PLAIN, 13));
+			editorPane.setBackground(new Color(255, 255, 255));
+			editorPane.setEditable(false);
+			editorPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Status", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		}
+		return editorPane;
+	}
 }
